@@ -37,17 +37,20 @@ function init() {
     walletconnect: {
       package: WalletConnectProvider,
       options: {
-
-        // Get a free hosted Ethereum node from https://quiknode.io
-        // This API key is one provided by Mikko's personal account for this demo.
-        // Expect this API key to die in the near future.
-        rpc: {
-          1: "https://twilight-morning-mountain.quiknode.pro/929901c69e24d67308666b8d5b0fcae3870fd8f5/",
-        }
+        // Mikko's test key - don't copy as your mileage may vary
+        infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
       }
     },
 
     fortmatic: {
+      package: Fortmatic,
+      options: {
+        // Mikko's TESTNET api key
+        key: "pk_test_391E26A3B43A3350"
+      }
+    },
+
+    tormo: {
       package: Fortmatic,
       options: {
         // Mikko's TESTNET api key
@@ -60,8 +63,6 @@ function init() {
     cacheProvider: false, // optional
     providerOptions, // required
   });
-
-  web3Modal.show = true;
 
 }
 
@@ -160,7 +161,12 @@ async function onConnect() {
   web3Modal.providerController.cachedProvider = null;
 
   console.log("Opening a dialog", web3Modal);
-  provider = await web3Modal.connect();
+  try {
+    provider = await web3Modal.connect();
+  } catch(e) {
+    console.log("Could not get a wallet connection", e);
+    return;
+  }
 
   // Subscribe to accounts change
   provider.on("accountsChanged", (accounts) => {
