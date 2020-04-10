@@ -1,10 +1,8 @@
-<html class="no-js" lang="en-US">
+<html>
   <head>
     <title>Simple vanilla JS example of Web3modal usage</title>
 
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Get some bootstrap default styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -14,34 +12,81 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1>Balance</h1>
+          <h1>Web3modal vanilla JavaScript demo</h1>
+
+          <p>No wallet connected. Connect wallet to show accounts and their ETH balances.</p>
 
           <div id="prepare">
-            <button class="btn btn-primary" id="connect">
+            <button class="btn btn-primary" id="btn-connect">
               Connect wallet
             </button>
           </div>
 
-          <div id="accounts"></div>
+          <div id="connected" style="display: none">
+
+            <button class="btn btn-primary" id="btn-disconnect">
+              Disconnect wallet
+            </button>
+
+            <hr>
+
+            <div id="network">
+              <p>
+                <strong>Connected blockchain:</strong> <span id="network-name"></span>
+              </p>
+
+              <p>
+                <strong>Selected account:</strong> <span id="selected-account"></span>
+              </p>
+
+            </div>
+
+            <hr>
+
+            <h3>All account balances</h3>
+
+            <table class="table table-listing">
+              <thead>
+                <th>Address</th>
+                <th>ETH balance</th>
+              </thead>
+
+              <tbody id="accounts">
+              </tbody>
+            </table>
+
+          </div>
 
         </div>
       </div>
     </div>
-    <div id="accounts"></div>
-    <div id="balance"></div>
 
-    <template id="template-balance">
-      <p>
-        <strong class="address"></strong>:
-        <span class="balance"></span>
-      </p>
-    </template>
+    <!-- We use simple <template> templating for the example -->
+    <div id="templates" style="display: none">
+      <template id="template-balance">
+        <tr>
+          <th class="address"></th>
+          <td class="balance"></td>
+        </tr>
+      </template>
+    </div>
 
-    <!-- Use unpkg CDN to load all NPM packages to vanilla Javascript - read more at http://unpkg.com -->
-    <script type="text/javascript" src="http://unpkg.com/web3"></script>
-    <script type="text/javascript" src="http://unpkg.com/web3modal"></script>
-    <script type="text/javascript" src="http://unpkg.com/web3-provider"></script>
+    <!--
+
+      Use unpkg CDN to load all NPM packages to vanilla Javascript - read more at http://unpkg.com
+
+      On your deployment, you properly either want to use a preprocessing tool like webpack
+      to include these files, or extract NPM archives and manually host the files inside.
+
+    -->
+
+    <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/web3modal/lib/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/evm-chains/lib/index.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/@walletconnect/web3-provider/lib/index.js"></script>
+
 
     <!-- This is our example code -->
-    <script type="text/javascript" src="./example.js"></script>
+    <script type="module" src="./example.js"></script>
+  </body>
 </html>
