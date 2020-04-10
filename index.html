@@ -55,6 +55,8 @@
               </tbody>
             </table>
 
+            <p>Please try to switch between different accounts in your wallet if your wallet supports this functonality.</p>
+
           </div>
 
         </div>
@@ -78,13 +80,15 @@
       On your deployment, you properly either want to use a preprocessing tool like webpack
       to include these files, or extract NPM archives and manually host the files inside.
 
+      TODO: Pin down all versions.
+
     -->
 
     <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
     <script type="text/javascript" src="http://unpkg.com/web3modal/lib/index.js"></script>
     <script type="text/javascript" src="https://unpkg.com/evm-chains/lib/index.js"></script>
     <script type="text/javascript" src="http://unpkg.com/@walletconnect/web3-provider/lib/index.js"></script>
-
+    <script type="text/javascript" src="http://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
 
     <!-- This is our example code -->
     <script type="module" src="./example.js"></script>

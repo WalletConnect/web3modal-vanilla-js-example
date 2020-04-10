@@ -8,6 +8,7 @@
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const EvmChains = window.EvmChains;
+const Fortmatic = window.Fortmatic;
 
 // Web3modal instance
 let web3Modal
@@ -27,6 +28,7 @@ function init() {
 
   console.log("Initializing example");
   console.log("WalletConnectProvider is", WalletConnectProvider);
+  console.log("Fortmatic is", Fortmatic);
 
   // Tell Web3modal what providers we have available.
   // Built-in web browser provider (only one can exist as a time)
@@ -37,17 +39,29 @@ function init() {
       options: {
 
         // Get a free hosted Ethereum node from https://quiknode.io
-        // This API key is one provided by Mikko's personal account for this demo
-        rpcURL: "https://twilight-morning-mountain.quiknode.pro/929901c69e24d67308666b8d5b0fcae3870fd8f5/"
+        // This API key is one provided by Mikko's personal account for this demo.
+        // Expect this API key to die in the near future.
+        rpc: {
+          1: "https://twilight-morning-mountain.quiknode.pro/929901c69e24d67308666b8d5b0fcae3870fd8f5/",
+        }
+      }
+    },
+
+    fortmatic: {
+      package: Fortmatic,
+      options: {
+        // Mikko's TESTNET api key
+        key: "pk_test_391E26A3B43A3350"
       }
     }
   };
 
   web3Modal = new Web3Modal({
-    network: "mainnet", // optional
     cacheProvider: false, // optional
-    providerOptions // required
+    providerOptions, // required
   });
+
+  web3Modal.show = true;
 
 }
 
@@ -55,7 +69,7 @@ function init() {
 /**
  * Kick in the UI action after Web3modal dialog has chosen a provider
  */
-async function fetchAccountData(provider) {
+async function fetchAccountData() {
 
   // Get a Web3 instance for the wallet
   const web3 = new Web3(provider);
@@ -97,20 +111,32 @@ async function fetchAccountData(provider) {
     clone.querySelector(".balance").textContent = humanFriendlyBalance;
     accountContainer.appendChild(clone);
   });
+
+  // Because rendering account does its own RPC commucation
+  // with Ethereum node, we do not want to display any results
+  // until data for all accounts is loaded
   await Promise.all(rowResolvers);
 
+  // Display fully loaded UI for wallet data
   document.querySelector("#prepare").style.display = "none";
   document.querySelector("#connected").style.display = "block";
 }
 
 
+
 /**
- * Connect wallet button pressed.
+ * Fetch account data for UI when
+ * - User switches accounts in wallet
+ * - User switches networks in wallet
+ * - User connects wallet initially
  */
-async function onConnect() {
-  // Get a live wallet provider
-  console.log("Opening a dialog");
-  provider = await web3Modal.connect();
+async function refreshAccountData() {
+
+  // If any current data is displayed when
+  // the user is switching acounts in the wallet
+  // immediate hide this data
+  document.querySelector("#connected").style.display = "none";
+  document.querySelector("#prepare").style.display = "block";
 
   // Disable button while UI is loading.
   // fetchAccountData() will take a while as it communicates
@@ -119,6 +145,39 @@ async function onConnect() {
   document.querySelector("#btn-connect").setAttribute("disabled", "disabled")
   await fetchAccountData(provider);
   document.querySelector("#btn-connect").removeAttribute("disabled")
+}
+
+
+/**
+ * Connect wallet button pressed.
+ */
+async function onConnect() {
+
+  // Setting this null forces to show the dialogue every time
+  // regardless if we play around with a cacheProvider settings
+  // in our localhost.
+  // TODO: A clean API needed here
+  web3Modal.providerController.cachedProvider = null;
+
+  console.log("Opening a dialog", web3Modal);
+  provider = await web3Modal.connect();
+
+  // Subscribe to accounts change
+  provider.on("accountsChanged", (accounts) => {
+    fetchAccountData();
+  });
+
+  // Subscribe to chainId change
+  provider.on("chainChanged", (chainId) => {
+    fetchAccountData();
+  });
+
+  // Subscribe to networkId change
+  provider.on("networkChanged", (networkId) => {
+    fetchAccountData();
+  });
+
+  await refreshAccountData();
 }
 
 /**
