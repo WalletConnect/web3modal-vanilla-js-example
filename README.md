@@ -7,8 +7,11 @@ This is a vanilla JavaScript example how to use Web3modal with different wallet 
 Because of limitations how wallet operate within a web browser
 and security of remote API calls used by the wallets,
 you should not run this example, or any Web3modal code,
-out from our file system or unsecure HTTP protocol
-(even on localhost).
+out of your file system or unsecure HTTP protocol
+(even on localhost). 
+
+The APIs of different wallet providers 
+will fail in funny and obscure way. MetaMask does not even show up.
 
 The easiest way to get local HTTPS development
 is to use [https-localhost](https://github.com/daquinoaldo/https-localhost).
