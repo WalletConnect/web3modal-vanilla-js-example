@@ -6,25 +6,37 @@ use any modern JavaScript framework. Uses cases would include:
 static HTML sites, WordPress, content management systems,
 tutorials and education.
 
+The code uses only unprocessed in-browser JavaScript.
+Dependencies, like the Web3Modal library itself,
+are loaded over Unpkg CDN. The code is extensively
+commented and short.
+
 * [View demo hosted on Github](https://web3modal.github.io/web3modal-vanilla-js-example/)
 
 ![screenshot](./screenshot.png)
 
+# Support
+
+Reach to us in [Web3modal Discord](https://discordapp.com/invite/YGnSX9y) or open a Github issue.
+
 # Web3 wallets and HTTPS hosting limitations
 
 Because of limitations how wallet operate within a web browser
-and security of remote API calls used by the wallets,
+and web security,
 you should not run this example, or any Web3modal code,
 out of your file system or unsecure HTTP protocol
-(even on localhost).
+(even using localhost).
 
 The APIs of different wallet providers
-will fail in funny and obscure way. MetaMask does not even show up.
+may fail in funny and obscure way.
+MetaMask does not even show up if you load it over `file://`
+protocol.
 
 The easiest way to get local HTTPS development
 is to use [https-localhost](https://github.com/daquinoaldo/https-localhost).
 
-Assuming you have a working Node environment set up:
+Assuming you have a working Node environment set up on a UNIX
+system you can do:
 
 ```sh
 npm i -g --only=prod https-localhost
