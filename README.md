@@ -24,7 +24,7 @@ Reach to us in [Web3modal Discord](https://discordapp.com/invite/YGnSX9y) or ope
 Because of limitations how wallet operate within a web browser
 and web security,
 you should not run this example, or any Web3modal code,
-out of your file system or unsecure HTTP protocol
+out of your file system or insecure HTTP protocol
 (even using localhost).
 
 The APIs of different wallet providers
