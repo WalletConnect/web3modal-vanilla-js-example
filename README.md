@@ -2,6 +2,8 @@ This is a vanilla JavaScript example how to use Web3modal with different wallet 
 
 * [View demo](https://web3modal.github.io/web3modal-vanilla-js-example/)
 
+![screenshot](./screenshot.png)
+
 # Web3 wallets and HTTPS hosting limitations
 
 Because of limitations how wallet operate within a web browser
