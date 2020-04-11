@@ -48,14 +48,6 @@ function init() {
         // Mikko's TESTNET api key
         key: "pk_test_391E26A3B43A3350"
       }
-    },
-
-    tormo: {
-      package: Fortmatic,
-      options: {
-        // Mikko's TESTNET api key
-        key: "pk_test_391E26A3B43A3350"
-      }
     }
   };
 
@@ -75,8 +67,7 @@ async function fetchAccountData() {
   // Get a Web3 instance for the wallet
   const web3 = new Web3(provider);
 
-  console.log("Web3 is", web3);
-  console.log(EvmChains);
+  console.log("Web3 instance is", web3);
 
   // Get connected chain id from Ethereum node
   const chainId = await web3.eth.getChainId();
@@ -202,6 +193,7 @@ async function onDisconnect() {
 
   selectedAccount = null;
 
+  // Set the UI back to the initial state
   document.querySelector("#prepare").style.display = "block";
   document.querySelector("#connected").style.display = "none";
 }
