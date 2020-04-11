@@ -1,6 +1,12 @@
-This is a vanilla JavaScript example how to use Web3modal with different wallet providers.
+This is a vanilla JavaScript example how to use Web3modal with different  wallet providers.
 
-* [View demo](https://web3modal.github.io/web3modal-vanilla-js-example/)
+The purpose of this example is how to connect a cryptocurrency wallet
+to a website that is build on traditional HTML technologies and does not
+use any modern JavaScript framework. Uses cases would include:
+static HTML sites, WordPress, content management systems,
+tutorials and education.
+
+* [View demo hosted on Github](https://web3modal.github.io/web3modal-vanilla-js-example/)
 
 ![screenshot](./screenshot.png)
 
@@ -10,9 +16,9 @@ Because of limitations how wallet operate within a web browser
 and security of remote API calls used by the wallets,
 you should not run this example, or any Web3modal code,
 out of your file system or unsecure HTTP protocol
-(even on localhost). 
+(even on localhost).
 
-The APIs of different wallet providers 
+The APIs of different wallet providers
 will fail in funny and obscure way. MetaMask does not even show up.
 
 The easiest way to get local HTTPS development
