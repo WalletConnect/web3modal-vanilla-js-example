@@ -188,6 +188,7 @@ async function onDisconnect() {
   // TODO: MetamaskInpageProvider does not provide disconnect?
   if(provider.close) {
     await provider.close();
+    await web3Modal.clearCachedProvider();
     provider = null;
   }
 
