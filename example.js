@@ -146,12 +146,6 @@ async function refreshAccountData() {
  */
 async function onConnect() {
 
-  // Setting this null forces to show the dialogue every time
-  // regardless if we play around with a cacheProvider settings
-  // in our localhost.
-  // TODO: A clean API needed here
-  web3Modal.providerController.cachedProvider = null;
-
   console.log("Opening a dialog", web3Modal);
   try {
     provider = await web3Modal.connect();
@@ -185,9 +179,14 @@ async function onDisconnect() {
 
   console.log("Killing the wallet connection", provider);
 
-  // TODO: MetamaskInpageProvider does not provide disconnect?
+  // TODO: Which providers have close method?
   if(provider.close) {
     await provider.close();
+
+    // If the cached provider is not cleared,
+    // WalletConnect will default to the existing session
+    // and does not allow to re-scan the QR code with a new wallet.
+    // Depending on your use case you may want or want not his behavir.
     await web3Modal.clearCachedProvider();
     provider = null;
   }
