@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Simple vanilla JS example of Web3modal usage</title>
+    <title>Web3modal example written in vanilla JavaScript and HTML</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,9 +12,13 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1>Web3modal vanilla JavaScript demo</h1>
+          <h1>Web3modal example for vanille JavaScript and HTML</h1>
 
           <p>No wallet connected. Connect wallet to show accounts and their ETH balances.</p>
+
+          <div class="alert alert-danger" id="alert-error-https" style="display: none">
+            You can run this example only over HTTPS connection.
+          </div>
 
           <div id="prepare">
             <button class="btn btn-primary" id="btn-connect">
@@ -57,6 +61,12 @@
 
             <p>Please try to switch between different accounts in your wallet if your wallet supports this functonality.</p>
 
+          </div>
+
+          <br>
+
+          <div class="well">
+            <p class="text-muted">See also the <a href="https://web3modal.com/">TypeScript and React example application</a></p>
           </div>
 
         </div>

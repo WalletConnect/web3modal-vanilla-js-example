@@ -29,6 +29,17 @@ function init() {
   console.log("Initializing example");
   console.log("WalletConnectProvider is", WalletConnectProvider);
   console.log("Fortmatic is", Fortmatic);
+  console.log("window.web3 is", window.web3, "window.ethereum is", window.ethereum);
+
+  // Check that the web page is run in a secure context,
+  // as otherwise MetaMask won't be available
+  if(!location.protocol !== 'https:') {
+    // https://ethereum.stackexchange.com/a/62217/620
+    const alert = document.querySelector("#alert-error-https");
+    alert.style.display = "block";
+    document.querySelector("#btn-connect").setAttribute("disabled", "disabled")
+    return;
+  }
 
   // Tell Web3modal what providers we have available.
   // Built-in web browser provider (only one can exist as a time)
@@ -54,8 +65,10 @@ function init() {
   web3Modal = new Web3Modal({
     cacheProvider: false, // optional
     providerOptions, // required
+    disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
   });
 
+  console.log("Web3Modal instance is", web3Modal);
 }
 
 
