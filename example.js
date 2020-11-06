@@ -7,8 +7,8 @@
  // Unpkg imports
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
-const EvmChains = window.EvmChains;
 const Fortmatic = window.Fortmatic;
+const evmChains = window.evmChains;
 
 // Web3modal instance
 let web3Modal
@@ -85,7 +85,7 @@ async function fetchAccountData() {
   // Get connected chain id from Ethereum node
   const chainId = await web3.eth.getChainId();
   // Load chain information over an HTTP API
-  const chainData = await EvmChains.getChain(chainId);
+  const chainData = evmChains.getChain(chainId);
   document.querySelector("#network-name").textContent = chainData.name;
 
   // Get list of accounts of the connected wallet
