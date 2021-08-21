@@ -56,41 +56,31 @@ function init() {
     providerOptions, // required
     disableInjectedProvider: false // optional. For MetaMask / Brave / Opera.
   });
-
   console.log("Web3Modal instance is", web3Modal);
 }
-
 /**
  * Kick in the UI action after Web3modal dialog has chosen a provider
  */
 async function fetchAccountData() {
   // Get a Web3 instance for the wallet
   const web3 = new Web3(provider);
-
   console.log("Web3 instance is", web3);
-
   // Get connected chain id from Ethereum node
   const chainId = await web3.eth.getChainId();
   // Load chain information over an HTTP API
   const chainData = evmChains.getChain(chainId);
   document.querySelector("#network-name").textContent = chainData.name;
-
   // Get list of accounts of the connected wallet
   const accounts = await web3.eth.getAccounts();
-
   // MetaMask does not give you all accounts, only the selected account
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
-
   document.querySelector("#selected-account").textContent = selectedAccount;
-
   // Get a handl
   const template = document.querySelector("#template-balance");
   const accountContainer = document.querySelector("#accounts");
-
   // Purge UI elements any previously loaded accounts
   accountContainer.innerHTML = "";
-
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
     const balance = await web3.eth.getBalance(address);
