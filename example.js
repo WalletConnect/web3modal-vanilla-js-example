@@ -8,6 +8,7 @@ const evmChains = window.evmChains;
 let web3Modal; // Web3modal instance
 let provider; // Chosen wallet provider given by the dialog window
 let selectedAccount; // Address of the selected account
+let networkconnected;
 /**
  * Setup the orchestra
  */
@@ -69,6 +70,13 @@ async function fetchAccountData() {
   const chainId = await web3.eth.getChainId();
   // Load chain information over an HTTP API
   const chainData = evmChains.getChain(chainId);
+  networkconnected = chainData.name;
+  if (networkconnected !== "Binance Smart Chain Mainnet") {
+    document.querySelector("#network-not-BSC").innerHTML =
+      "<strong>Wrong Network:</strong> Please Connect to Binance Smart Chain in MetaMask.";
+  } else {
+    document.querySelector("#network-not-BSC").innerHTML = "";
+  }
   document.querySelector("#network-name").textContent = chainData.name;
   // Get list of accounts of the connected wallet
   const accounts = await web3.eth.getAccounts();
@@ -90,9 +98,13 @@ async function fetchAccountData() {
     const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
     // Fill in the templated row and put in the document
     const clone = template.content.cloneNode(true);
-    clone.querySelector(".address").textContent = address;
+    clone.querySelector(".address").textContent =
+      address.slice(0, 5) +
+      "..." +
+      address.slice(address.length - 6, address.length - 1);
     clone.querySelector(".balance").textContent = humanFriendlyBalance;
     accountContainer.appendChild(clone);
+    // read the DM value
   });
 
   // Because rendering account does its own RPC commucation
