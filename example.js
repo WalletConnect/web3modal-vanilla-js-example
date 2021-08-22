@@ -129,11 +129,15 @@ async function fetchAccountData() {
       contractAddress
     );
     contract.methods
-      .a_a_Show_All_Info()
+      .balanceOf(address)
       .call()
       .then((dictt) => {
-        console.log(dictt);
+        console.log(dictt, "balanceOf");
+        const DMbal = web3.utils.fromWei(dictt, "ether");
+        const humanFriendlyDMbal = parseFloat(DMbal).toFixed(4);
+        document.querySelector("#DMbal").textContent = humanFriendlyDMbal;
       });
+    document.querySelector("#DMbal").textContent = "fetching data";
     // read the DM value
   });
 
