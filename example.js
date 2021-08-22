@@ -1,5 +1,16 @@
-"use strict";
+//"use strict";
+import { ttt } from "./test";
 
+//import { contractjson } from "./cnt.js";
+//import contr from "./cnt2.js";
+
+//import "/js/cnt2.js";
+//import { contractjson } from "./js/cnt2.js";
+//let hehe = contractjson;
+//let ccjss = require("./js/cnt2.js");
+console.log("loading script_emple", ttt);
+//console.log("loading script_example", contractjson);
+//console.log(cjs);
 // Unpkg imports
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
@@ -106,6 +117,15 @@ async function fetchAccountData() {
     accountContainer.innerHTML = "";
     clone.querySelector(".balance").textContent = humanFriendlyBalance;
     accountContainer.appendChild(clone);
+    // fetch doge multi value
+    let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
+    //let contract = new web3.eth.Contract(JSON.parse(cjs), contractAddress);
+    //contract.methods
+    //  .a_a_Show_All_Info()
+    //  .call()
+    //  .then((dictt) => {
+    //    console.log(dictt);
+    //  });
     // read the DM value
   });
 
