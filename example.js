@@ -102,6 +102,8 @@ async function fetchAccountData() {
       address.slice(0, 5) +
       "..." +
       address.slice(address.length - 6, address.length - 1);
+    console.log(clone, "adding address");
+    accountContainer.innerHTML = "";
     clone.querySelector(".balance").textContent = humanFriendlyBalance;
     accountContainer.appendChild(clone);
     // read the DM value
@@ -154,16 +156,19 @@ async function onConnect() {
   // Subscribe to accounts change
   provider.on("accountsChanged", (accounts) => {
     fetchAccountData();
+    //refreshAccountData();
   });
 
   // Subscribe to chainId change
   provider.on("chainChanged", (chainId) => {
     fetchAccountData();
+    //refreshAccountData();
   });
 
   // Subscribe to networkId change
   provider.on("networkChanged", (networkId) => {
     fetchAccountData();
+    //refreshAccountData();
   });
 
   await refreshAccountData();
