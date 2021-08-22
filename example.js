@@ -24,6 +24,7 @@ let web3Modal; // Web3modal instance
 let provider; // Chosen wallet provider given by the dialog window
 let selectedAccount; // Address of the selected account
 let networkconnected;
+let web3;
 /**
  * Setup the orchestra
  */
@@ -79,7 +80,7 @@ function init() {
  */
 async function fetchAccountData() {
   // Get a Web3 instance for the wallet
-  const web3 = new Web3(provider);
+  web3 = new Web3(provider);
   const bscweb3 = new Web3("https://bsc-dataseed.binance.org/");
   console.log("Web3 instance is", web3);
   // Get connected chain id from Ethereum node
@@ -172,7 +173,10 @@ async function refreshAccountData() {
   await fetchAccountData(provider);
   document.querySelector("#btn-connect").removeAttribute("disabled");
 }
-
+async function onBuy() {
+  let val2 = document.getElementById("qbnb").value;
+  console.log(val2, "buy button pressed");
+}
 /**
  * Connect wallet button pressed.
  */
@@ -237,6 +241,14 @@ async function onDisconnect() {
 window.addEventListener("load", async () => {
   init();
   document.querySelector("#btn-connect").addEventListener("click", onConnect);
+  document.querySelector("#btn-buy").addEventListener("click", onBuy);
+  document.getElementById("qbnb").addEventListener("keyup", function (event) {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      onBuy();
+      //document.querySelector('form').submit();
+    }
+  });
   document
     .querySelector("#btn-disconnect")
     .addEventListener("click", onDisconnect);
