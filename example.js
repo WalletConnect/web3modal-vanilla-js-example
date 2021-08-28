@@ -25,6 +25,8 @@ let provider; // Chosen wallet provider given by the dialog window
 let selectedAccount; // Address of the selected account
 let networkconnected;
 let web3;
+let DMcontract;
+let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
 /**
  * Setup the orchestra
  */
@@ -124,12 +126,12 @@ async function fetchAccountData() {
     clone.querySelector(".balance").textContent = humanFriendlyBalance;
     accountContainer.appendChild(clone);
     // fetch doge multi value
-    let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
-    let contract = new bscweb3.eth.Contract(
+    
+    DMcontract = new bscweb3.eth.Contract(
       JSON.parse(contracttext),
       contractAddress
     );
-    contract.methods
+    DMcontract.methods
       .balanceOf(address)
       .call()
       .then((dictt) => {
@@ -176,6 +178,46 @@ async function refreshAccountData() {
 async function onBuy() {
   let val2 = document.getElementById("qbnb").value;
   console.log(val2, "buy button pressed");
+  alert(val2+"buy button pressed");
+  if (networkconnected !== "Binance Smart Chain Mainnet") {
+    alert("Please connect to the Binance Smart Chain Mainnet.");
+    return;
+  }
+  const weii = web3.utils.toWei(val2, "ether");
+  alert("number in weii"+weii);
+  let encoded = DMcontract.methods.a_public_buyDOGE().encodeABI();
+  let tx = {
+    to : contractAddress,
+    data : encoded,
+    value:weii.toString()
+  }
+  web3.eth.accounts.signTransaction(tx, privateKey).then(signed => {
+    web3.eth.sendSignedTransaction(signed.rawTransaction).on('receipt', console.log);
+});
+  return;
+  DMcontract.methods.a_public_buyDOGE().send({'from': contractAddress,"gas":201230}, function(error, transactionHash){
+    console.log(error,"error");
+    console.log(transactionHash,"transactionHash");
+  });
+  return;
+  web3.eth.sendTransaction(
+    {
+      to: contractAddress,
+      'from': selectedAccount,
+      //value: '0x...',
+      // And so on...
+    },
+    (error, result) => {
+      if (error) {
+        return console.error(error);
+      }
+      // Handle the result
+      alert("transaction hash"+result);
+      //console.log(result);
+    }
+  );
+  /* execute the buy request for meta mask*/
+
 }
 /**
  * Connect wallet button pressed.
