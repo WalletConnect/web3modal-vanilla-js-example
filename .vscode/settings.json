@@ -7,5 +7,6 @@
       "cert": "C:/Users/aktan/Documents/server_docs/httpskeys/localhost.pem",
       "key": "C:/Users/aktan/Documents/server_docs/httpskeys/localhost.key",
       "passphrase": "alexalex"
-    }
+    },
+    "liveServer.settings.host": "localhost"
   }
