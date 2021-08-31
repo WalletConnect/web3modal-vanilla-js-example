@@ -181,7 +181,7 @@ async function getprice(url) {
         const ExRate =  Number.parseFloat(dictt.ExRate) ;
         const ExRateBase = Number.parseFloat(dictt.ExRateBase) ;
         const humanFriendlyRate = (1000000*bnbprice/(ExRateBase/ExRate)).toFixed(4); // one bnb gives this amount
-        document.querySelector("#currDMprice").textContent = "$"+ humanFriendlyRate+ " per 1Million DogeMulti";
+        document.querySelector("#currDMprice").textContent = "USD$ "+ humanFriendlyRate+ " per Million DogeMulti";
       });
 }
 function hideloader() {
@@ -191,7 +191,7 @@ function hideloader() {
 function show(data) {
   let tab = Number.parseFloat(data.price).toFixed(2);
   currBNBPrice = Number.parseFloat(data.price);
-  document.getElementById("currBNBprice").innerHTML = "$"+tab+"/BNB";
+  document.getElementById("currBNBprice").innerHTML = "USD$ "+tab+" per BNB";
 }
 /**
  * Fetch account data for UI when
@@ -378,6 +378,7 @@ async function onDisconnect() {
   // Set the UI back to the initial state
   document.querySelector("#prepare").style.display = "block";
   document.querySelector("#connected").style.display = "none";
+  document.querySelector("#connectStatus").style.display = "block";
 }
 
 /**
