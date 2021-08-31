@@ -12,20 +12,34 @@
   <!-- Construct a Bootstrap layout -->
   <div class="container">
     <div class="row">
+
       <div class="col-md-12">
         <h1>Doge Multiverse Contract Portal</h1>
-        <p id="connectStatus">
-          No wallet connected.
-        </p>
+      </div>
+
+      <div class="col-md-12 d-flex justify-content-center">
+        <h3>Current Price</h3>
+        <div class="spinner-border" role="status" id="loading">
+          <span class="sr-only">Loading...</span>
+          loading price...
+        </div>
+        <p id="currBNBprice"></p>
+        <p id="currDMprice"></p>
+      </div>
+
+      <div class="col-md-12 d-flex justify-content-center">
         <div class="alert alert-danger" id="alert-error-https" style="display: none;">
           You can run this example only over HTTPS connection.
         </div>
-
         <div id="prepare">
           <button class="btn btn-primary" id="btn-connect">
             Connect metamask wallet
           </button>
         </div>
+
+        <p id="connectStatus">
+          No wallet connected.
+        </p>
 
         <div id="connected" style="display: none;">
           <button class="btn btn-primary" id="btn-disconnect">
@@ -46,6 +60,9 @@
               <strong>Selected account:</strong>
               <span id="selected-account"></span>
             </p>
+            <p>
+              <span id="view-bsc-account"></span>
+            </p>
           </div>
           <hr />
           <!-- <h3>All account balances</h3>
@@ -56,11 +73,11 @@
             </thead>
             <tbody id="accounts"></tbody>
           </table> -->
-          <h4>Binance Coin Balance</h4>
+          <h3>Binance Coin Balance</h3>
           <p id="BNBbal">0</p>
-          <h4>Doge Multiverse Balance</h4>
+          <h3>Doge Multiverse Balance</h3>
           <p id="DMbal">0</p>
-          <h4>Doge Multiverse Contract Interactions</h4>
+          <h3>Doge Multiverse Contract Interactions</h3>
           <label for="qbnb">amount in bnb: </label>
           <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
           <button class="btn btn-primary" id="btn-buy">
@@ -84,19 +101,7 @@
         </div>
 
       </div>
-      <div class="col-md-12 d-flex justify-content-center">
-        <h1>Current BNB price</h1>
 
-        <div class="spinner-border" role="status" id="loading">
-          <span class="sr-only">Loading...</span>
-          loading price...
-        </div>
-
-
-        <table id="currBNBprice"></table>
-        <h1>Current $DogeMultiverse price</h1>
-        <table id="currDMprice"></table>
-      </div>
     </div>
   </div>
   </div>

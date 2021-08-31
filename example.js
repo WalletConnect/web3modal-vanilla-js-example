@@ -29,7 +29,8 @@ let DMcontract;
 let DMcontractunlocked;
 let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
 let accounts;
-let currBNBPrice=470;
+let currBNBPrice = 470;
+let currDMPrice = 0.7 / 1000000;
 let dmpricecontract = new Web3("https://bsc-dataseed.binance.org/");
 let DMpricecontract = new dmpricecontract.eth.Contract(
   JSON.parse(contracttext),
@@ -115,6 +116,7 @@ async function fetchAccountData() {
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
   document.querySelector("#selected-account").textContent = selectedAccount;
+  document.querySelector("#view-bsc-account").innerHTML = `<a href="https://bscscan.com/address/`+selectedAccount+`" target="_blank"> View on account BSC Scan</a>`;
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
     // set "loading" text
@@ -126,7 +128,8 @@ async function fetchAccountData() {
     // https://github.com/indutny/bn.js/
     const ethBalance = web3.utils.fromWei(balance, "ether");
     const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
-    document.querySelector("#BNBbal").textContent = humanFriendlyBalance+ " BNB";
+    const busdvalue = (parseFloat(ethBalance) * currBNBPrice).toFixed(2);
+    document.querySelector("#BNBbal").textContent = humanFriendlyBalance + " BNB ( ≈USD$" + busdvalue + " )";
     // fetch doge multi value
     DMcontract = new bscweb3.eth.Contract(
       JSON.parse(contracttext),
@@ -139,7 +142,13 @@ async function fetchAccountData() {
         console.log(dictt, "balanceOf");
         const DMbal = web3.utils.fromWei(dictt, "ether");
         const humanFriendlyDMbal = parseFloat(DMbal).toFixed(4);
-        document.querySelector("#DMbal").textContent = humanFriendlyDMbal+ " $DogeMulti";
+        if (parseFloat(DMbal) < 100000) {
+          const busdvalue = (parseFloat(DMbal) * currDMPrice).toFixed(8);
+          document.querySelector("#DMbal").textContent = humanFriendlyDMbal + " $DogeMulti ( ≈USD$" + busdvalue + " )";
+        } else {
+          const busdvalue = (parseFloat(DMbal) * currDMPrice).toFixed(2);
+          document.querySelector("#DMbal").textContent = humanFriendlyDMbal + " $DogeMulti ( ≈USD$" + busdvalue + " )";
+        }
       });
   });
 
@@ -174,15 +183,16 @@ async function getprice(url) {
   show(data);
   let bnbprice = Number.parseFloat(data.price).toFixed(2);
   DMpricecontract.methods
-      .a_public_showExRate()
-      .call()
-      .then((dictt) => {
-        console.log(dictt, "ExRate");
-        const ExRate =  Number.parseFloat(dictt.ExRate) ;
-        const ExRateBase = Number.parseFloat(dictt.ExRateBase) ;
-        const humanFriendlyRate = (1000000*bnbprice/(ExRateBase/ExRate)).toFixed(4); // one bnb gives this amount
-        document.querySelector("#currDMprice").textContent = "USD$ "+ humanFriendlyRate+ " per Million DogeMulti";
-      });
+    .a_public_showExRate()
+    .call()
+    .then((dictt) => {
+      console.log(dictt, "ExRate");
+      const ExRate = Number.parseFloat(dictt.ExRate);
+      const ExRateBase = Number.parseFloat(dictt.ExRateBase);
+      currDMPrice = bnbprice / (ExRateBase / ExRate);
+      const humanFriendlyRate = (1000000 * currDMPrice).toFixed(4); // one bnb gives this amount
+      document.querySelector("#currDMprice").textContent = "USD$ " + humanFriendlyRate + " per Million DogeMulti";
+    });
 }
 function hideloader() {
   document.getElementById('loading').style.display = 'none';
@@ -191,7 +201,7 @@ function hideloader() {
 function show(data) {
   let tab = Number.parseFloat(data.price).toFixed(2);
   currBNBPrice = Number.parseFloat(data.price);
-  document.getElementById("currBNBprice").innerHTML = "USD$ "+tab+" per BNB";
+  document.getElementById("currBNBprice").innerHTML = "USD$ " + tab + " per BNB";
 }
 /**
  * Fetch account data for UI when
@@ -253,7 +263,7 @@ async function onSellLowFee() {
     return;
   }
   const weii = web3.utils.toWei(val2, "ether");//alert("number in weii"+weii);
-  DMcontractunlocked.methods.a_public_sellDOGE_lowFee(weii).send({ 'from': accounts[0], "gas": 13370 }).then((receipt) => {
+  DMcontractunlocked.methods.a_public_sellDOGE_lowFee(weii).send({ 'from': accounts[0], "gas": 201230 }).then((receipt) => {
     if (receipt) {
       console.log(receipt["transactionHash"], "transactionHash");
       alert("Success!\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
@@ -279,7 +289,7 @@ async function onSellForced() {
   }
   const weii = web3.utils.toWei(val2, "ether");
   //alert("number in weii"+weii);
-  DMcontractunlocked.methods.a_public_sellDOGE_Forced_30percentFee(weii).send({ 'from': accounts[0], "gas": 13370 }).then((receipt) => {
+  DMcontractunlocked.methods.a_public_sellDOGE_Forced_30percentFee(weii).send({ 'from': accounts[0], "gas": 201230 }).then((receipt) => {
     if (receipt) {
       console.log(receipt["transactionHash"], "transactionHash");
       alert("Success! Transcation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
@@ -395,7 +405,6 @@ window.addEventListener("load", async () => {
     if (event.code === "Enter") {
       event.preventDefault();
       onBuy();
-      //document.querySelector('form').submit();
     }
   });
   document
