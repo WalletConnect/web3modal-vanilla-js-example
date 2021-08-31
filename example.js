@@ -190,22 +190,11 @@ async function onBuy() {
   }
   const weii = web3.utils.toWei(val2, "ether");
   alert("number in weii"+weii);
-//   let encoded = DMcontractunlocked.methods.a_public_buyDOGE().encodeABI();
-//   let tx = {
-//     to : contractAddress,
-//     data : encoded,
-//     value:weii.toString()
-//   }
-//   web3.eth.accounts.signTransaction(tx).then(signed => {
-//     web3.eth.sendSignedTransaction(signed.rawTransaction).on('receipt', console.log);
-// // });
-//   return;
   DMcontractunlocked.methods.a_public_buyDOGE().send({'from': accounts[0],"gas":201230,"value":weii}, function(error, transactionHash){
     console.log(error,"error");
     console.log(transactionHash,"transactionHash");
   });
   return;
-
 }
 /**
  * Connect wallet button pressed.
@@ -272,6 +261,9 @@ window.addEventListener("load", async () => {
   init();
   document.querySelector("#btn-connect").addEventListener("click", onConnect);
   document.querySelector("#btn-buy").addEventListener("click", onBuy);
+  document.querySelector("#btn-sell-low-fee").addEventListener("click", onSellLowFee);
+  document.querySelector("#btn-sell-forced").addEventListener("click", onSellForced);
+  document.querySelector("#btn-buy").addEventListener("click", onBuy);
   document.getElementById("qbnb").addEventListener("keyup", function (event) {
     if (event.code === "Enter") {
       event.preventDefault();
@@ -283,35 +275,3 @@ window.addEventListener("load", async () => {
     .querySelector("#btn-disconnect")
     .addEventListener("click", onDisconnect);
 });
-
-const ethereumButton = document.querySelector('.enableEthereumButton');
-const sendEthButton = document.querySelector('.sendEthButton');
-
-let accounts2 = [];
-
-//Sending Ethereum to an address
-sendEthButton.addEventListener('click', () => {
-  ethereum
-    .request({
-      method: 'eth_sendTransaction',
-      params: [
-        {
-          from: accounts2[0],
-          to: '0x2f318C334780961FB129D2a6c30D0763d9a5C970',
-          value: '0x29a2241af62c0000',
-          gasPrice: '0x09184e72a000',
-          gas: '0x2710',
-        },
-      ],
-    })
-    .then((txHash) => console.log(txHash))
-    .catch((error) => console.error);
-});
-
-ethereumButton.addEventListener('click', () => {
-  getAccount();
-});
-
-async function getAccount() {
-  accounts2 = await ethereum.request({ method: 'eth_requestAccounts' });
-}
