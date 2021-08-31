@@ -30,6 +30,11 @@ let DMcontractunlocked;
 let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
 let accounts;
 let currBNBPrice=470;
+let dmpricecontract = new Web3("https://bsc-dataseed.binance.org/");
+let DMpricecontract = new dmpricecontract.eth.Contract(
+  JSON.parse(contracttext),
+  contractAddress
+);
 /**
  * Setup the orchestra
  */
@@ -154,6 +159,8 @@ const api_url =
   "https://api.binance.com/api/v3/avgPrice?symbol=BNBBUSD";
 /**
  * fetch latest price from binance https://api.binance.com/api/v3/avgPrice?symbol=BNBBUSD
+ * /api/v3/ticker/24hr
+ * https://api.binance.com/api/v3/ticker/24hr?symbol=BNBBUSD
  */
 async function getprice(url) {
   // Storing response
@@ -165,6 +172,17 @@ async function getprice(url) {
     hideloader();
   }
   show(data);
+  let bnbprice = Number.parseFloat(data.price).toFixed(2);
+  DMpricecontract.methods
+      .a_public_showExRate()
+      .call()
+      .then((dictt) => {
+        console.log(dictt, "ExRate");
+        const ExRate =  Number.parseFloat(dictt.ExRate) ;
+        const ExRateBase = Number.parseFloat(dictt.ExRateBase) ;
+        const humanFriendlyRate = (1000000*bnbprice/(ExRateBase/ExRate)).toFixed(4); // one bnb gives this amount
+        document.querySelector("#currDMprice").textContent = "$"+ humanFriendlyRate+ " per 1Million DogeMulti";
+      });
 }
 function hideloader() {
   document.getElementById('loading').style.display = 'none';
@@ -228,16 +246,17 @@ async function onSellLowFee() {
   let val2 = document.getElementById("qDM").value;
   //console.log(val2, "sell button pressed");
   //alert(val2+"sell low fee button pressed");
+  window.alert("This function will unlock when milestones are achieved.\nSell with high fee if you really need to.");
+  return;
   if (networkconnected !== "Binance Smart Chain Mainnet") {
     alert("Please connect to the Binance Smart Chain Mainnet.");
     return;
   }
-  const weii = web3.utils.toWei(val2, "ether");
-  //alert("number in weii"+weii);
+  const weii = web3.utils.toWei(val2, "ether");//alert("number in weii"+weii);
   DMcontractunlocked.methods.a_public_sellDOGE_lowFee(weii).send({ 'from': accounts[0], "gas": 13370 }).then((receipt) => {
     if (receipt) {
       console.log(receipt["transactionHash"], "transactionHash");
-      alert("Success! You now enjoy +10% Bonus.\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
+      alert("Success!\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
     }
   }).catch((error) => {
     if (error["code"] == 4001) {
@@ -263,7 +282,7 @@ async function onSellForced() {
   DMcontractunlocked.methods.a_public_sellDOGE_Forced_30percentFee(weii).send({ 'from': accounts[0], "gas": 13370 }).then((receipt) => {
     if (receipt) {
       console.log(receipt["transactionHash"], "transactionHash");
-      alert("Success! You now enjoy +10% Bonus.\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
+      alert("Success! Transcation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
     }
   }).catch((error) => {
     if (error["code"] == 4001) {
