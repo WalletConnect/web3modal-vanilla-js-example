@@ -110,11 +110,6 @@ async function fetchAccountData() {
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
   document.querySelector("#selected-account").textContent = selectedAccount;
-  // Get a handl
-  //const template = document.querySelector("#template-balance");
-  //const accountContainer = document.querySelector("#accounts");
-  // Purge UI elements any previously loaded accounts
-  //accountContainer.innerHTML = "";
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
     // set "loading" text
@@ -126,24 +121,12 @@ async function fetchAccountData() {
     // https://github.com/indutny/bn.js/
     const ethBalance = web3.utils.fromWei(balance, "ether");
     const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
-    // Fill in the templated row and put in the document
-    // const clone = template.content.cloneNode(true);
-    // clone.querySelector(".address").textContent =
-    //   address.slice(0, 7) +
-    //   "..." +
-    //   address.slice(address.length - 8, address.length - 1);
-    // console.log(clone, "adding address");
-    // accountContainer.innerHTML = "";
-    // clone.querySelector(".balance").textContent = humanFriendlyBalance;
-    // accountContainer.appendChild(clone);
-    // replace BNB value BNBbal
     document.querySelector("#BNBbal").textContent = humanFriendlyBalance+ " BNB";
     // fetch doge multi value
     DMcontract = new bscweb3.eth.Contract(
       JSON.parse(contracttext),
       contractAddress
     );
-
     DMcontract.methods
       .balanceOf(address)
       .call()
