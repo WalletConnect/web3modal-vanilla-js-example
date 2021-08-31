@@ -26,7 +26,9 @@ let selectedAccount; // Address of the selected account
 let networkconnected;
 let web3;
 let DMcontract;
+let DMcontractunlocked;
 let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
+let accounts;
 /**
  * Setup the orchestra
  */
@@ -95,10 +97,14 @@ async function fetchAccountData() {
       "<strong>Wrong Network:</strong> Please Connect to Binance Smart Chain in MetaMask.";
   } else {
     document.querySelector("#network-not-BSC").innerHTML = "";
+    DMcontractunlocked = new web3.eth.Contract(
+      JSON.parse(contracttext),
+      contractAddress
+    );
   }
   document.querySelector("#network-name").textContent = chainData.name;
   // Get list of accounts of the connected wallet
-  const accounts = await web3.eth.getAccounts();
+  accounts = await web3.eth.getAccounts();
   // MetaMask does not give you all accounts, only the selected account
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
@@ -126,7 +132,6 @@ async function fetchAccountData() {
     clone.querySelector(".balance").textContent = humanFriendlyBalance;
     accountContainer.appendChild(clone);
     // fetch doge multi value
-    
     DMcontract = new bscweb3.eth.Contract(
       JSON.parse(contracttext),
       contractAddress
@@ -185,38 +190,21 @@ async function onBuy() {
   }
   const weii = web3.utils.toWei(val2, "ether");
   alert("number in weii"+weii);
-  let encoded = DMcontract.methods.a_public_buyDOGE().encodeABI();
-  let tx = {
-    to : contractAddress,
-    data : encoded,
-    value:weii.toString()
-  }
-  web3.eth.accounts.signTransaction(tx, privateKey).then(signed => {
-    web3.eth.sendSignedTransaction(signed.rawTransaction).on('receipt', console.log);
-});
-  return;
-  DMcontract.methods.a_public_buyDOGE().send({'from': contractAddress,"gas":201230}, function(error, transactionHash){
+//   let encoded = DMcontractunlocked.methods.a_public_buyDOGE().encodeABI();
+//   let tx = {
+//     to : contractAddress,
+//     data : encoded,
+//     value:weii.toString()
+//   }
+//   web3.eth.accounts.signTransaction(tx).then(signed => {
+//     web3.eth.sendSignedTransaction(signed.rawTransaction).on('receipt', console.log);
+// // });
+//   return;
+  DMcontractunlocked.methods.a_public_buyDOGE().send({'from': accounts[0],"gas":201230,"value":weii}, function(error, transactionHash){
     console.log(error,"error");
     console.log(transactionHash,"transactionHash");
   });
   return;
-  web3.eth.sendTransaction(
-    {
-      to: contractAddress,
-      'from': selectedAccount,
-      //value: '0x...',
-      // And so on...
-    },
-    (error, result) => {
-      if (error) {
-        return console.error(error);
-      }
-      // Handle the result
-      alert("transaction hash"+result);
-      //console.log(result);
-    }
-  );
-  /* execute the buy request for meta mask*/
 
 }
 /**
