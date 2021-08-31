@@ -72,6 +72,7 @@
             </table>
             <h4>Doge Multiverse Balance</h4>
             <p id="DMbal">0</p>
+            <h4>Doge Multiverse Contract Interactions</h4>
             <label for="qbnb">amount in bnb: </label>
             <input
               type="number"
@@ -84,6 +85,16 @@
             <button class="btn btn-primary" id="btn-buy">
               Buy from contract
             </button>
+            <br>
+            <label for="qDM">amount in $dogemulti: </label>
+            <input
+              type="number"
+              step="0.00001"
+              min="0"
+              value="0.0001"
+              id="qDM"
+              name="qDM"
+            />
             <button class="btn btn-primary" id="btn-sell-low-fee">
               Sell from contract (0.1% fee)
             </button>

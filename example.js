@@ -182,17 +182,64 @@ async function refreshAccountData() {
 }
 async function onBuy() {
   let val2 = document.getElementById("qbnb").value;
-  console.log(val2, "buy button pressed");
-  alert(val2+"buy button pressed");
+  //console.log(val2, "buy button pressed");
+  //alert(val2+"buy button pressed");
+  if (networkconnected !== "Binance Smart Chain Mainnet") {
+    alert("Please connect to the Binance Smart Chain Mainnet.");
+    return;
+  }
+  const weii = web3.utils.toWei(val2, "ether");
+  //alert("number in weii"+weii);
+  DMcontractunlocked.methods.a_public_buyDOGE().send({'from': accounts[0],"gas":201230,"value":weii}, function(error, transactionHash){
+    if (transactionHash){
+      console.log(transactionHash,"transactionHash");
+      alert("Transcation sent to blockchain, Txn Hash: "+transactionHash);
+    } else{      
+      console.log(error,"txn error");
+      alert("transaction error:"+error); 
+    }
+  });
+  return;
+}
+async function onSellLowFee() {
+  let val2 = document.getElementById("qDM").value;
+  //console.log(val2, "sell button pressed");
+  alert(val2+"sell low fee button pressed");
   if (networkconnected !== "Binance Smart Chain Mainnet") {
     alert("Please connect to the Binance Smart Chain Mainnet.");
     return;
   }
   const weii = web3.utils.toWei(val2, "ether");
   alert("number in weii"+weii);
-  DMcontractunlocked.methods.a_public_buyDOGE().send({'from': accounts[0],"gas":201230,"value":weii}, function(error, transactionHash){
-    console.log(error,"error");
-    console.log(transactionHash,"transactionHash");
+  DMcontractunlocked.methods.a_public_sellDOGE_lowFee(weii).send({'from': accounts[0],"gas":13370}, function(error, transactionHash){
+    if (transactionHash){
+      console.log(transactionHash,"transactionHash");
+      alert("Transcation sent to blockchain, Txn Hash: "+transactionHash);
+    } else{      
+      console.log(error,"txn error");
+      alert("transaction error:"+error); 
+    }
+  });
+  return;
+}
+async function onSellForced() {
+  let val2 = document.getElementById("qDM").value;
+  //console.log(val2, "sell button pressed");
+  alert(val2+"sell forced button pressed");
+  if (networkconnected !== "Binance Smart Chain Mainnet") {
+    alert("Please connect to the Binance Smart Chain Mainnet.");
+    return;
+  }
+  const weii = web3.utils.toWei(val2, "ether");
+  alert("number in weii"+weii);
+  DMcontractunlocked.methods.a_public_sellDOGE_Forced_30percentFee(weii).send({'from': accounts[0],"gas":13370}, function(error, transactionHash){
+    if (transactionHash){
+      console.log(transactionHash,"transactionHash");
+      alert("Transcation sent to blockchain, Txn Hash: "+transactionHash);
+    } else{      
+      console.log(error,"txn error");
+      alert("transaction error:"+error); 
+    }
   });
   return;
 }
