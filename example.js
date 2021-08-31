@@ -153,8 +153,6 @@ async function fetchAccountData() {
         const humanFriendlyDMbal = parseFloat(DMbal).toFixed(4);
         document.querySelector("#DMbal").textContent = humanFriendlyDMbal+ " $DogeMulti";
       });
-
-    // read the DM value
   });
 
   // Because rendering account does its own RPC commucation
