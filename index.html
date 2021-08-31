@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Doge Multiverse Contract Example</title>
+  <title>Doge Multiverse Contract</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -13,10 +13,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>connect wallet example4</h1>
+        <h1>Doge Multiverse Contract Portal</h1>
         <p id="connectStatus">
-          No wallet connected. Connect wallet to show accounts and their ETH
-          balances.
+          No wallet connected.
         </p>
         <div class="alert alert-danger" id="alert-error-https" style="display: none;">
           You can run this example only over HTTPS connection.
@@ -49,14 +48,16 @@
             </p>
           </div>
           <hr />
-          <h3>All account balances</h3>
+          <!-- <h3>All account balances</h3>
           <table class="table table-listing">
             <thead>
               <th>Address</th>
               <th>BNB balance</th>
             </thead>
             <tbody id="accounts"></tbody>
-          </table>
+          </table> -->
+          <h4>Binance Coin Balance</h4>
+          <p id="BNBbal">0</p>
           <h4>Doge Multiverse Balance</h4>
           <p id="DMbal">0</p>
           <h4>Doge Multiverse Contract Interactions</h4>
@@ -66,7 +67,7 @@
             Buy from contract
           </button>
           <br>
-          <label for="qDM">amount in $dogemulti: </label>
+          <label for="qDM">amount in $DogeMulti: </label>
           <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
           <button class="btn btn-primary" id="btn-sell-low-fee">
             Sell from contract (0.1% fee)
@@ -83,6 +84,15 @@
         </div>
 
       </div>
+      <h1>Current BNB price</h1>
+      <div class="col-md-12 d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="loading">
+          <span class="sr-only">Loading...</span>
+          loading price...
+        </div>
+      </div>
+      
+      <table id="currBNBprice"></table>
     </div>
   </div>
 
@@ -95,6 +105,7 @@
       </tr>
     </template>
   </div>
+
   <!-- 
       Use unpkg CDN to load all NPM packages to vanilla Javascript - read more at http://unpkg.com 
       On your deployment, you properly either want to use a preprocessing tool like webpack

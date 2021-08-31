@@ -29,6 +29,7 @@ let DMcontract;
 let DMcontractunlocked;
 let contractAddress = "0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8";
 let accounts;
+let currBNBPrice=470;
 /**
  * Setup the orchestra
  */
@@ -110,32 +111,39 @@ async function fetchAccountData() {
   selectedAccount = accounts[0];
   document.querySelector("#selected-account").textContent = selectedAccount;
   // Get a handl
-  const template = document.querySelector("#template-balance");
-  const accountContainer = document.querySelector("#accounts");
+  //const template = document.querySelector("#template-balance");
+  //const accountContainer = document.querySelector("#accounts");
   // Purge UI elements any previously loaded accounts
-  accountContainer.innerHTML = "";
+  //accountContainer.innerHTML = "";
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
+    // set "loading" text
+    document.querySelector("#BNBbal").textContent = "fetching data";
+    document.querySelector("#DMbal").textContent = "fetching data";
+    // fetch bnb balance
     const balance = await web3.eth.getBalance(address);
     // ethBalance is a BigNumber instance
     // https://github.com/indutny/bn.js/
     const ethBalance = web3.utils.fromWei(balance, "ether");
     const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
     // Fill in the templated row and put in the document
-    const clone = template.content.cloneNode(true);
-    clone.querySelector(".address").textContent =
-      address.slice(0, 5) +
-      "..." +
-      address.slice(address.length - 6, address.length - 1);
-    console.log(clone, "adding address");
-    accountContainer.innerHTML = "";
-    clone.querySelector(".balance").textContent = humanFriendlyBalance;
-    accountContainer.appendChild(clone);
+    // const clone = template.content.cloneNode(true);
+    // clone.querySelector(".address").textContent =
+    //   address.slice(0, 7) +
+    //   "..." +
+    //   address.slice(address.length - 8, address.length - 1);
+    // console.log(clone, "adding address");
+    // accountContainer.innerHTML = "";
+    // clone.querySelector(".balance").textContent = humanFriendlyBalance;
+    // accountContainer.appendChild(clone);
+    // replace BNB value BNBbal
+    document.querySelector("#BNBbal").textContent = humanFriendlyBalance+ " BNB";
     // fetch doge multi value
     DMcontract = new bscweb3.eth.Contract(
       JSON.parse(contracttext),
       contractAddress
     );
+
     DMcontract.methods
       .balanceOf(address)
       .call()
@@ -143,9 +151,9 @@ async function fetchAccountData() {
         console.log(dictt, "balanceOf");
         const DMbal = web3.utils.fromWei(dictt, "ether");
         const humanFriendlyDMbal = parseFloat(DMbal).toFixed(4);
-        document.querySelector("#DMbal").textContent = humanFriendlyDMbal;
+        document.querySelector("#DMbal").textContent = humanFriendlyDMbal+ " $DogeMulti";
       });
-    document.querySelector("#DMbal").textContent = "fetching data";
+
     // read the DM value
   });
 
@@ -157,14 +165,43 @@ async function fetchAccountData() {
   // Display fully loaded UI for wallet data
   document.querySelector("#prepare").style.display = "none";
   document.querySelector("#connected").style.display = "block";
+  document.querySelector("#connectStatus").style.display = "none";
 }
 
+// api url
+const api_url =
+  "https://api.binance.com/api/v3/avgPrice?symbol=BNBBUSD";
+/**
+ * fetch latest price from binance https://api.binance.com/api/v3/avgPrice?symbol=BNBBUSD
+ */
+async function getprice(url) {
+  // Storing response
+  const response = await fetch(url);
+  // Storing data in form of JSON
+  var data = await response.json();
+  console.log(data);
+  if (response) {
+    hideloader();
+  }
+  show(data);
+}
+function hideloader() {
+  document.getElementById('loading').style.display = 'none';
+}
+// Function to define innerHTML for HTML table
+function show(data) {
+  let tab = Number.parseFloat(data.price).toFixed(2);
+  currBNBPrice = Number.parseFloat(data.price);
+  document.getElementById("currBNBprice").innerHTML = "$"+tab+"/BNB";
+}
 /**
  * Fetch account data for UI when
  * - User switches accounts in wallet
  * - User switches networks in wallet
  * - User connects wallet initially
  */
+getprice(api_url);
+
 async function refreshAccountData() {
   // If any current data is displayed when
   // the user is switching acounts in the wallet
