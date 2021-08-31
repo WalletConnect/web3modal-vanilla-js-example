@@ -190,58 +190,100 @@ async function onBuy() {
   }
   const weii = web3.utils.toWei(val2, "ether");
   //alert("number in weii"+weii);
-  DMcontractunlocked.methods.a_public_buyDOGE().send({'from': accounts[0],"gas":201230,"value":weii}, function(error, transactionHash){
-    if (transactionHash){
-      console.log(transactionHash,"transactionHash");
-      alert("Transcation sent to blockchain, Txn Hash: "+transactionHash);
-    } else{      
-      console.log(error,"txn error");
-      alert("transaction error:"+error); 
+  DMcontractunlocked.methods.a_public_buyDOGE().send({ 'from': accounts[0], "gas": 201230, "value": weii }).then((receipt) => {
+    if (receipt) {
+      console.log(receipt["transactionHash"], "transactionHash");
+      alert("Success! You now enjoy +10% Bonus.\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
+    }
+  }).catch((error) => {
+    if (error["code"] == 4001) {
+      alert("Transaction rejected by user.\nMessage: " + error["message"]);
+    } else if (error["code"] == -32603) {
+      alert("Not enough gas.\nMessage: " + error["message"]);
+    } else {
+      console.log(error, "txn error");
+      alert("Transaction error,\ncode: " + error["code"] + "\nMessage: " + error["message"]);
     }
   });
-  return;
 }
 async function onSellLowFee() {
   let val2 = document.getElementById("qDM").value;
   //console.log(val2, "sell button pressed");
-  alert(val2+"sell low fee button pressed");
+  //alert(val2+"sell low fee button pressed");
   if (networkconnected !== "Binance Smart Chain Mainnet") {
     alert("Please connect to the Binance Smart Chain Mainnet.");
     return;
   }
   const weii = web3.utils.toWei(val2, "ether");
-  alert("number in weii"+weii);
-  DMcontractunlocked.methods.a_public_sellDOGE_lowFee(weii).send({'from': accounts[0],"gas":13370}, function(error, transactionHash){
-    if (transactionHash){
-      console.log(transactionHash,"transactionHash");
-      alert("Transcation sent to blockchain, Txn Hash: "+transactionHash);
-    } else{      
-      console.log(error,"txn error");
-      alert("transaction error:"+error); 
+  //alert("number in weii"+weii);
+  DMcontractunlocked.methods.a_public_sellDOGE_lowFee(weii).send({ 'from': accounts[0], "gas": 13370 }).then((receipt) => {
+    if (receipt) {
+      console.log(receipt["transactionHash"], "transactionHash");
+      alert("Success! You now enjoy +10% Bonus.\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
+    }
+  }).catch((error) => {
+    if (error["code"] == 4001) {
+      alert("Transaction rejected by user.\nMessage: " + error["message"]);
+    } else if (error["code"] == -32603) {
+      alert("Not enough gas.\nMessage: " + error["message"]);
+    } else {
+      console.log(error, "txn error");
+      alert("Transaction error,\ncode: " + error["code"] + "\nMessage: " + error["message"]);
     }
   });
-  return;
 }
 async function onSellForced() {
   let val2 = document.getElementById("qDM").value;
   //console.log(val2, "sell button pressed");
-  alert(val2+"sell forced button pressed");
+  //alert(val2+"sell forced button pressed");
   if (networkconnected !== "Binance Smart Chain Mainnet") {
     alert("Please connect to the Binance Smart Chain Mainnet.");
     return;
   }
   const weii = web3.utils.toWei(val2, "ether");
-  alert("number in weii"+weii);
-  DMcontractunlocked.methods.a_public_sellDOGE_Forced_30percentFee(weii).send({'from': accounts[0],"gas":13370}, function(error, transactionHash){
-    if (transactionHash){
-      console.log(transactionHash,"transactionHash");
-      alert("Transcation sent to blockchain, Txn Hash: "+transactionHash);
-    } else{      
-      console.log(error,"txn error");
-      alert("transaction error:"+error); 
+  //alert("number in weii"+weii);
+  DMcontractunlocked.methods.a_public_sellDOGE_Forced_30percentFee(weii).send({ 'from': accounts[0], "gas": 13370 }).then((receipt) => {
+    if (receipt) {
+      console.log(receipt["transactionHash"], "transactionHash");
+      alert("Success! You now enjoy +10% Bonus.\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
+    }
+  }).catch((error) => {
+    if (error["code"] == 4001) {
+      alert("Transaction rejected by user.\nMessage: " + error["message"]);
+    } else if (error["code"] == -32603) {
+      alert("Not enough gas.\nMessage: " + error["message"]);
+    } else {
+      console.log(error, "txn error");
+      alert("Transaction error,\ncode: " + error["code"] + "\nMessage: " + error["message"]);
     }
   });
-  return;
+}
+async function onSetReferrer() {
+  let val2 = document.getElementById("refAddr").value;
+  var patt = new RegExp(/^0x[a-fA-F0-9]{40}$/);
+  if (!patt.test(val2)) {
+    alert("Please enter a valid wallet address. (starts with '0x...') ");
+    return;
+  }
+  if (networkconnected !== "Binance Smart Chain Mainnet") {
+    alert("Please connect to the Binance Smart Chain Mainnet.");
+    return;
+  }
+  DMcontractunlocked.methods.a_public_setReferrer(val2).send({ 'from': accounts[0], "gas": 64243 }).then((receipt) => {
+    if (receipt) {
+      console.log(receipt["transactionHash"], "transactionHash");
+      alert("Success! You now enjoy +10% Bonus.\nTranscation sent to blockchain, Txn Hash: " + receipt["transactionHash"]);
+    }
+  }).catch((error) => {
+    if (error["code"] == 4001) {
+      alert("Transaction rejected by user.\nMessage: " + error["message"]);
+    } else if (error["code"] == -32603) {
+      alert("Not enough gas.\nMessage: " + error["message"]);
+    } else {
+      console.log(error, "txn error");
+      alert("Transaction error,\ncode: " + error["code"] + "\nMessage: " + error["message"]);
+    }
+  });
 }
 /**
  * Connect wallet button pressed.
@@ -310,7 +352,7 @@ window.addEventListener("load", async () => {
   document.querySelector("#btn-buy").addEventListener("click", onBuy);
   document.querySelector("#btn-sell-low-fee").addEventListener("click", onSellLowFee);
   document.querySelector("#btn-sell-forced").addEventListener("click", onSellForced);
-  document.querySelector("#btn-buy").addEventListener("click", onBuy);
+  document.querySelector("#btn-setreferrer").addEventListener("click", onSetReferrer);
   document.getElementById("qbnb").addEventListener("keyup", function (event) {
     if (event.code === "Enter") {
       event.preventDefault();
