@@ -191,7 +191,7 @@ async function getprice(url) {
       const ExRateBase = Number.parseFloat(dictt.ExRateBase);
       currDMPrice = bnbprice / (ExRateBase / ExRate);
       const humanFriendlyRate = (1000000 * currDMPrice).toFixed(4); // one bnb gives this amount
-      document.querySelector("#currDMprice").textContent = "USD$ " + humanFriendlyRate + " per Million DogeMulti";
+      document.querySelector("#currDMprice").textContent = "USD$ " + humanFriendlyRate + " per Million $DogeMulti";
     });
 }
 function hideloader() {
