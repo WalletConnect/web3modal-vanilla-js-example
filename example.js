@@ -196,7 +196,7 @@ async function getprice(url) {
       const ExRateBase = Number.parseFloat(dictt.ExRateBase);
       currDMpriceContract = bnbprice / (ExRateBase / ExRate);
       const humanFriendlyRate = (1000000 * currDMpriceContract).toFixed(4); // one bnb gives this amount
-      document.querySelector("#currDMpriceContract").textContent = "USD$ " + humanFriendlyRate + " per Million $DogeMulti (Contract price)";
+      document.querySelector("#currDMpriceContract").textContent = "USD$ " + humanFriendlyRate + " per Million $DogeMulti (Contract)";
     });
   wbnbContract.methods.balanceOf("0xCF758d3570874375878682b54d5798073fE982A1").call().then((dictt) => {
     const pkswapbnbval = web3DMpricecontract.utils.fromWei(dictt, "ether");
@@ -212,7 +212,7 @@ async function getprice(url) {
         //const ExRateBase = Number.parseFloat(dictt.ExRateBase);
         currDMpricePKswap = bnbprice / (pkswapDMval / pkswapbnbval);
         const humanFriendlyRate = (1000000 * currDMpricePKswap).toFixed(4); // one bnb gives this amount
-        document.querySelector("#currDMpricePKswap").textContent = "USD$ " + humanFriendlyRate + " per Million $DogeMulti (Pancakeswap Price)";
+        document.querySelector("#currDMpricePKswap").textContent = "USD$ " + humanFriendlyRate + " per Million $DogeMulti (Pancakeswap)";
       });
   });
 }
