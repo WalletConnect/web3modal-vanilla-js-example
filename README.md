@@ -5,6 +5,7 @@ An example application how to use Web3modal from vanilla JavaScript
 # FEATURES
 
 - use this page to buy and sell Doge Multiverse tokens.
+- set your referal address to gain an extra 10% bonus when you buy from the contract.
 
 # TODO:
 
