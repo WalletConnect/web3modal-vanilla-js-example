@@ -408,7 +408,7 @@ async function onDisconnect() {
   selectedAccount = null;
 
   // Set the UI back to the initial state
-  document.querySelector("#prepare").style.display = "block";
+  document.querySelector("#prepare").style.display = "block"; //justify-content: center;  
   document.querySelector("#connected").style.display = "none";
   document.querySelector("#connectStatus").style.display = "block";
 }

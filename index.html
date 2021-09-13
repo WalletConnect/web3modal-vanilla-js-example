@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
-  <title>Doge Multiverse Portal</title>
+  <title>Doge Multiverse Portal, Staking and Earning from Micro-Transaction Fees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <meta description="description" content="View your Doge Multiverse Holdings and Earnings. Earn from staking and providing liquidity to facilitate in-game micro-transactions."/>
-  <meta name="title" content="Doge Multiverse Portal, Staking and Earning from Micro-Transaction Fees"/>
-  <meta name="keywords" content="Doge Multiverse, DogeMV, DogeMultiverse, DogeMutli, DogeMV, $DogeMV, $DogeMulti, $DogeMultiverse, liquidity, in-game, ingame, micro-transactions, transactions, microtransactions"/>
+  <meta description="description"
+    content="View your Doge Multiverse Holdings and Earnings. Earn from staking and providing liquidity to facilitate in-game micro-transactions." />
+  <meta name="title" content="Doge Multiverse Portal, Staking and Earning from Micro-Transaction Fees" />
+  <meta name="keywords"
+    content="Doge Multiverse, DogeMV, DogeMultiverse, DogeMutli, DogeMV, $DogeMV, $DogeMulti, $DogeMultiverse, liquidity, in-game, ingame, micro-transactions, transactions, microtransactions" />
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" /> -->
   <link href="css/styles.css" rel="stylesheet" />
@@ -18,14 +20,14 @@
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
     type="text/css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
   <link rel="icon" type="image/x-icon" href="assets/img/doge_icon.png" />
-  
+
 </head>
 
 <body id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container px-4">
       <a class="navbar-brand" href="#page-top">
         <img src="assets/img/doge_icon_small.png" alt="..." height="20px" class="ax-icon2" id="hide-when-mobile" />
@@ -39,20 +41,90 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#vprop">Value</a>
-          </li>  
+            <!-- <a class="nav-link" href="#vprop">Value</a> -->
+            <a class="nav-link" id="avgprice"><text id="avgprice1">$0.6-</text><text id="avgprice2">$0.6</text><text>per
+                M$DogeMV</text></a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
   <!-- Header-->
-  <header class="bg-primary bg-gradient text-white">
-    <div class="container px-4 text-center py-3">
-      <h1 class="fw-bolder lh-lg">  Doge
-        Multiverse 
-      </h1> 
+  <header class="bg-primary bg-gradient text-white" style="padding-top: 3.5rem;">
+    <div class="container px-4 text-center" style="padding-top:3rem;">
+      <h5 class="fw-bolder"> Stake Doge Multiverse Tokens to Earn from Transaction Fees.
+      </h5>
+
+      <hr />
     </div>
-    <div class="container py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <div class="alert alert-danger" id="alert-error-https" style="display: none;">
+            You can run this example only over HTTPS connection.
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center" id="prepare">
+        <button class="btn btn-light col-sm-6"   id="btn-connect">
+          Connect metamask wallet
+        </button>
+      </div>
+      <div class="row" style="text-align:center; padding-top: 1rem;padding-bottom: 1rem;">
+        <p id="connectStatus">No wallet connected.</p>
+      </div>
+      <div class="row justify-content-center" id="connected" style="display: none;">
+        <button class="btn col-sm-6 btn-warning" id="btn-disconnect">
+          Disconnect wallet
+        </button>
+        <hr />
+        <div id="network">
+          <p>
+            <strong>Connected blockchain:</strong>
+            <span id="network-name"></span>
+          </p>
+          <p>
+            <span id="network-not-BSC"></span>
+          </p>
+          <p>
+            <strong>Selected account:</strong>
+            <span id="selected-account"></span>
+          </p>
+          <p>
+            <span id="view-bsc-account"></span>
+          </p>
+        </div>
+        <hr />
+        <h3>Binance Coin Balance</h3>
+        <p id="BNBbal">0</p>
+        <h3>Doge Multiverse Balance</h3>
+        <p id="DMbal">0</p>
+        <h3>Doge Multiverse Contract Interactions</h3>
+        <label for="qbnb">Buy $DogeMulti (input amount in BNB): </label>
+        <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
+        <button class="btn btn-light" id="btn-buy">
+          Buy from contract
+        </button>
+        <br>
+        <label for="qDM">Sell $DogeMulti (input amount in $DogeMulti): </label>
+        <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
+        <button class="btn btn-light" id="btn-sell-low-fee">
+          Sell from contract (0.1% fee)
+        </button>
+        <button class="btn btn-light" id="btn-sell-forced">
+          Sell from contract (30% fee)
+        </button>
+        <br>
+        <label for="refAddr">Set Referrer Address (input Referrer Address for additional 10% bonus): </label>
+        <input type="text" id="refAddr" />
+        <button class="btn btn-light" id="btn-setreferrer">
+          Set Referrer (+10% Bonus)
+        </button>
+      </div>
+
+
+    </div>
+    <!-- <div class="container py-3">
       <div class="row gx-4 px-3 justify-content-center">
 
         <p class="lh-lg h5 mb-0 col-lg-3 text-center">$650k+ <em>Mkt. CAP</em></p>
@@ -60,11 +132,77 @@
         <p class="lh-lg h5 mb-0 col-lg-3 text-center">95%+ <em>Liq. Locked</em></p>
 
       </div>
-    </div> 
-    <div class="container py-3">
-      <p class="lead text-center">
-        Community:
-      </p>
+    </div> -->
+
+    <!-- <div class="container ">
+      <div class="row gx-1 px-1 justify-content-center gap-sm-2">
+        <a class="btn btn-sm btn-light mb-1 btn-max-width" target="_blank"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdUcyUTPEOKhaqMiBvjux3KpTL9_sku7WQuNG0oRRI3vUw9qA/viewform">On
+          Going AIRDROP (No Gas Needed)</a>
+        <a class="btn btn-sm btn-light mb-1 btn-max-width" target="_blank"
+          href="https://www.binance.com/en/blog/421499824684901055/Get-Started-on-Binance-Smart-Chain-in-60-Seconds">New
+          to BEP-20 Tokens?
+          <img src="assets/img/metamask_logo_small_cropped.jpg" height="20px" class="metamask-icon" />
+          MetaMask Guide</a>
+        <a class="btn btn-sm btn-light mb-1 btn-max-width" href="earn_dogemv.html">Earn $DogeMulti</a>
+        <a class="btn btn-sm btn-warning mb-1 btn-max-width" href="https://token.servegame.com"
+          target="_blank">$DogeMulti Portal</a>
+        <a class="btn btn-sm btn-light mb-1 btn-max-width" href="quick_buy.html">Buy $DogeMulti from
+          Contract</a>
+        <a class="btn btn-sm btn-light mb-1 btn-max-width" href="https://pancakeswap.finance/swap">Buy
+          $DogeMulti from PancakeSwap
+          <img src="assets/img/pancakeswap-cake-logo_50x50.png" height="20px" class="metamask-icon" /></a>
+      </div>
+    </div> -->
+  </header>
+  <!-- value prop-->
+  <!-- <section id="vprop">
+    <div class="container px-4 text-center">
+      <div class="row gx-4 justify-content-center">
+        <h2>
+          <img src="assets/img/doge_icon_small_transparent_32xy32.png" alt="..." class="doge-icon-title" />
+          Value Proposition
+          <img src="assets/img/doge_icon_small_transparent_32xy32.png" alt="..." class="doge-icon-title" />
+        </h2>
+        <p class="lead">
+          Doge Multiverse serves as a community based currency to facilitate
+          the transcations of In-Game skins. See
+          <a href="coming_soon.html">whitepaper</a>.
+        </p>
+      </div>
+    </div>
+  </section> -->
+  <!-- Construct a Bootstrap layout -->
+  <div class="container" style="padding-top: 3.5rem;">
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center p-1">
+        <h3>Current Prices</h3>
+        <div class="spinner-border p-1" role="status" id="loading">
+          <span class="sr-only"> </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 d-flex  justify-content-center">
+        <p id="currBNBprice"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 d-flex  justify-content-center">
+        <p id="currDMpriceContract"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 d-flex  justify-content-center">
+        <p id="currDMpricePKswap"></p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <section>
+    <div class="container">
       <div class="row justify-content-center mb-4">
         <div class="col-lg-6 h-100 text-center my-auto mb-0">
           <ul class="list-inline mb-0">
@@ -93,141 +231,7 @@
         <strong style="font-size: min(max(5px, 3.5vw), 16px);">0x3C37ab18d0EC386d06dD68E3470e49bFDC0D46E8</strong>
       </p>
     </div>
-    <div class="container ">
-      <div class="row gx-1 px-1 justify-content-center gap-sm-2">
-        <a class="btn btn-sm btn-light mb-1 btn-max-width" target="_blank"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdUcyUTPEOKhaqMiBvjux3KpTL9_sku7WQuNG0oRRI3vUw9qA/viewform">On
-          Going AIRDROP (No Gas Needed)</a>
-        <a class="btn btn-sm btn-light mb-1 btn-max-width" target="_blank"
-          href="https://www.binance.com/en/blog/421499824684901055/Get-Started-on-Binance-Smart-Chain-in-60-Seconds">New
-          to BEP-20 Tokens?
-          <img src="assets/img/metamask_logo_small_cropped.jpg" height="20px" class="metamask-icon" />
-          MetaMask Guide</a>
-        <a class="btn btn-sm btn-light mb-1 btn-max-width" href="earn_dogemv.html">Earn $DogeMulti</a>
-        <a class="btn btn-sm btn-warning mb-1 btn-max-width" href="https://token.servegame.com"
-          target="_blank">$DogeMulti Portal</a>
-        <a class="btn btn-sm btn-light mb-1 btn-max-width" href="quick_buy.html">Buy $DogeMulti from
-          Contract</a>
-        <a class="btn btn-sm btn-light mb-1 btn-max-width" href="https://pancakeswap.finance/swap">Buy
-          $DogeMulti from PancakeSwap
-          <img src="assets/img/pancakeswap-cake-logo_50x50.png" height="20px" class="metamask-icon" /></a>
-      </div>
-    </div>
-  </header>
-  <!-- value prop-->
-  <section id="vprop">
-    <div class="container px-4 text-center">
-      <div class="row gx-4 justify-content-center">
-        <h2>
-          <img src="assets/img/doge_icon_small_transparent_32xy32.png" alt="..." class="doge-icon-title" />
-          Value Proposition
-          <img src="assets/img/doge_icon_small_transparent_32xy32.png" alt="..." class="doge-icon-title" />
-        </h2>
-        <p class="lead">
-          Doge Multiverse serves as a community based currency to facilitate
-          the transcations of In-Game skins. See
-          <a href="coming_soon.html">whitepaper</a>.
-        </p>
-      </div>
-    </div>
   </section>
-  <!-- Construct a Bootstrap layout -->
-  <div class="container">
-    <div class="row">
-
-      <div class="col-md-12">
-        <h1>Doge Multiverse Portal</h1>
-      </div>
-
-      <div class="col-md-12 d-flex justify-content-center">
-        <h3>Current Price</h3>
-        <div class="spinner-border" role="status" id="loading">
-          <span class="sr-only">Loading...</span>
-          loading price...
-        </div>
-        <p id="currBNBprice"></p>
-        <p id="currDMpriceContract"></p>
-        <p id="currDMpricePKswap"></p>
-      </div>
-
-      <div class="col-md-12 d-flex justify-content-center">
-        <div class="alert alert-danger" id="alert-error-https" style="display: none;">
-          You can run this example only over HTTPS connection.
-        </div>
-        <div id="prepare">
-          <button class="btn btn-primary" id="btn-connect">
-            Connect metamask wallet
-          </button>
-        </div>
-
-        <p id="connectStatus">
-          No wallet connected.
-        </p>
-
-        <div id="connected" style="display: none;">
-          <button class="btn btn-primary" id="btn-disconnect">
-            Disconnect wallet
-          </button>
-
-          <hr />
-
-          <div id="network">
-            <p>
-              <strong>Connected blockchain:</strong>
-              <span id="network-name"></span>
-            </p>
-            <p>
-              <span id="network-not-BSC"></span>
-            </p>
-            <p>
-              <strong>Selected account:</strong>
-              <span id="selected-account"></span>
-            </p>
-            <p>
-              <span id="view-bsc-account"></span>
-            </p>
-          </div>
-          <hr />
-          <!-- <h3>All account balances</h3>
-          <table class="table table-listing">
-            <thead>
-              <th>Address</th>
-              <th>BNB balance</th>
-            </thead>
-            <tbody id="accounts"></tbody>
-          </table> -->
-          <h3>Binance Coin Balance</h3>
-          <p id="BNBbal">0</p>
-          <h3>Doge Multiverse Balance</h3>
-          <p id="DMbal">0</p>
-          <h3>Doge Multiverse Contract Interactions</h3>
-          <label for="qbnb">amount in bnb: </label>
-          <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
-          <button class="btn btn-primary" id="btn-buy">
-            Buy from contract
-          </button>
-          <br>
-          <label for="qDM">amount in $DogeMulti: </label>
-          <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
-          <button class="btn btn-primary" id="btn-sell-low-fee">
-            Sell from contract (0.1% fee)
-          </button>
-          <button class="btn btn-primary" id="btn-sell-forced">
-            Sell from contract (30% fee)
-          </button>
-          <br>
-          <label for="refAddr">Referrer Address: </label>
-          <input type="text" id="refAddr" />
-          <button class="btn btn-primary" id="btn-setreferrer">
-            Set Referrer (+10% Bonus)
-          </button>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
   <!-- We use simple <template> templating for the example -->
   <div id="templates" style="display: none;">
     <template id="template-balance">
