@@ -1,0 +1,77 @@
+﻿
+/*=============================================================
+    Authour URI: www.binarytheme.com
+    License: Commons Attribution 3.0
+
+    http://creativecommons.org/licenses/by/3.0/
+
+    100% Free To use For Personal And Commercial Use.
+    IN EXCHANGE JUST GIVE US CREDIT  AND TELL YOUR FRIENDS ABOUT US
+   
+    ========================================================  */
+
+
+/*=====================================
+  THEME SWITCHER STYLES 
+   ===================================*/
+.switcher {
+    width:50px;
+    padding:10px;
+    position:fixed;
+    z-index:2000;
+    top:90px;
+    right:0;
+    background-color:rgba(221, 221, 221, 1);
+    -webkit-transition:all .4s ease-in-out;
+    -moz-transition:all .4s ease-in-out;
+    -ms-transition:all .4s ease-in-out;
+    -o-transition:all .4s ease-in-out;
+    transition:all .4s ease-in-out;
+	color:#000000;
+}
+   
+.switcher #switch-panel {
+    position:absolute;
+    right:-34px;
+    top:15px;
+    width:34px;
+    height:38px;
+    z-index:1990;
+    display:block;
+    background-color:rgba(221, 221, 221, 1);
+	margin-left:0;
+    cursor: pointer;
+}
+.switcher #switch-panel i {
+    font-size: 20px;
+    line-height: 40px;
+    padding-left:5px;
+    color:#000;
+}
+.switcher .colors-list {
+    margin:0;
+    padding:0;
+}
+.switcher .colors-list li {
+    float:left;
+    display:block;
+    margin-bottom:2px;
+    margin-right:6px;
+}
+.switcher .colors-list li a {
+    display:inline-block;
+    width:24px;
+    height:24px;
+    cursor: pointer;
+}
+
+.switcher .colors-list a.green {
+    background-color:#9baceb;
+}
+.switcher .colors-list a.red {
+    background-color:#B7544B;
+}
+
+.switcher .colors-list a.black {
+    background-color:black;
+}
