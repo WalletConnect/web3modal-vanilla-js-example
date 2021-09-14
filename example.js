@@ -121,7 +121,7 @@ async function fetchAccountData() {
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
   document.querySelector("#selected-account").textContent = selectedAccount;
-  document.querySelector("#view-bsc-account").innerHTML = `<a href="https://bscscan.com/address/` + selectedAccount + `" target="_blank"> View on account BSC Scan</a>`;
+  document.querySelector("#view-bsc-account").innerHTML = `<a href="https://bscscan.com/address/` + selectedAccount + `" target="_blank" class="text-info"> View account on BSC Scan</a>`;
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
     // set "loading" text
