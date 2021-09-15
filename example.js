@@ -106,7 +106,8 @@ async function fetchAccountData() {
   networkconnected = chainData.name;
   if (networkconnected !== "Binance Smart Chain Mainnet") {
     document.querySelector("#network-not-BSC").innerHTML =
-      "<strong>Wrong Network:</strong> Please Connect to Binance Smart Chain in MetaMask.";
+      `<strong style="color: darkred; font-weight: bold;">Wrong Network:</strong> Please Connect to Binance Smart Chain in MetaMask.`;
+      alert("Please connect to Binance Smart Chain in MetaMask.");
   } else {
     document.querySelector("#network-not-BSC").innerHTML = "";
     DMcontractunlocked = new web3.eth.Contract(

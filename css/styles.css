@@ -4351,10 +4351,13 @@ ul.ex2 {
 /* added by alex*/
 .infocardstyle{
   background-color: transparent;
-  border: 3px solid rgba(0, 0, 0, 0.125);
+  border: 3px solid rgba(255, 255, 255, 0.725);
   border-radius: 0.25rem;
-  padding-bottom: 1rem;
-  padding-top: 0.5rem;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  min-width: 400px;
+  max-width:800px;
+  align-content: center;
 }
 .card > hr {
   margin-right: 0;
