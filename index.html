@@ -76,7 +76,7 @@
       </div>
       <div id="connected" style="display: none;">
         <div class="row justify-content-center" style="padding-top: 1.5rem;">
-          <div class="col-sm-6">
+          <div class="col-md-9 col-lg-6">
             <div class="card infocardstyle" style="text-align:center;">
               <div class="card-body">
                 <strong>Connected blockchain:</strong>
@@ -86,9 +86,9 @@
                 </div>
                 <strong>Selected account:</strong>
                 <span id="selected-account"></span>
-                <p>
+                <div>
                   <span id="view-bsc-account"></span>
-                </p>
+                </div>
                 <button class="btn col-sm-6 btn-warning" id="btn-disconnect">
                   Disconnect wallet
                 </button>
@@ -96,56 +96,72 @@
             </div>
           </div>
         </div>
-
-        <div class="row justify-content-center">
-          <div class="col-sm-10 col-lg-6">
-            <h3>Binance Coin Balance</h3>
-            <p id="BNBbal">0</p>
-            <h3>Doge Multiverse Balance</h3>
-            <p id="DMbal">0</p>
-          </div>
-        </div>
-        <hr />
-        <div>
-          <div class="row justify-content-center">
-            <div class=" col-sm-10 col-lg-6">
-              <h3>Contract Interactions</h3>
+        <div class="row justify-content-center" style="padding-top: 1.5rem;">
+          <div class="col-md-9 col-lg-6">
+            <div class="card infocardstyle" style="text-align:center;">
+              <div class="card-body">
+                <h3 class="card-title">Binance Coin Balance</h3>
+                <p id="BNBbal">0</p>
+                <h3 class="card-title">Doge Multiverse Balance</h3>
+                <p id="DMbal">0</p>
+              </div>
             </div>
           </div>
-          <div class="row col-sm-10 col-lg-6" style="padding-bottom: 1rem;padding-top: 1rem;">
-            <label for="qbnb">Buy $DogeMulti (input amount in BNB): </label>
-            <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
-            <br>
-            <button class="btn btn-sm btn-light" id="btn-buy">
-              Buy from contract
-            </button>
-          </div>
-          <br>
-          <div class="row col-sm-10 col-lg-6" style="padding-bottom: 1rem;">
-            <label for="qDM">Sell $DogeMulti (input amount in $DogeMulti): </label>
-            <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
-            <br>
-            <button class="btn btn-sm btn-light" id="btn-sell-low-fee">
-              Sell from contract (0.1% fee)
-            </button>
-            <button class="btn btn-sm btn-light" id="btn-sell-forced">
-              Sell from contract (30% fee)
-            </button>
-          </div>
-          <br>
-          <div class="row col-sm-10 col-lg-6" style="padding-bottom: 1rem;">
-            <label for="refAddr">Set Referrer Address (input Referrer Address for additional 10% bonus): </label>
-            <input type="text" id="refAddr" />
-            <br>
-            <button class="btn btn-sm btn-light" id="btn-setreferrer">
-              Set Referrer (+10% Bonus)
-            </button>
-          </div>
         </div>
-      </div>
+        <div>
+          <div class="row justify-content-center" style="padding-top: 1.5rem;">
+            <div class="col-md-9 col-lg-6">
+              <div class="card infocardstyle" style="text-align:center;">
+                <div class="card-body">
+                  <h3 class="card-title"> Contract Interactions </h3>
+                  <div class="row" style="padding-bottom: 1rem;padding-top: 1rem;">
+                    <label for="qbnb">Buy $DogeMulti (input amount in BNB): </label>
+                    <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
+                    <br>
+                    <button class="btn btn-sm btn-light" id="btn-buy">
+                      Buy from contract
+                    </button>
+                  </div>
+                  <br>
+                  <div class="row" style="padding-bottom: 1rem;">
+                    <label for="qDM">Sell $DogeMulti (input amount in $DogeMulti): </label>
+                    <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
+                    <br>
+                    <button class="btn btn-sm btn-light" id="btn-sell-low-fee">
+                      Sell from contract (0.1% fee)
+                    </button>
+                    <button class="btn btn-sm btn-light" id="btn-sell-forced">
+                      Sell from contract (30% fee)
+                    </button>
+                  </div>
+                  <br>
+                  <!-- https://getbootstrap.com/docs/4.0/components/input-group/ -->
+                  <!-- <div class="row" style="padding-bottom: 1rem;">
+                    <label for="refAddr">Set Referrer Address(input Referrer Address for additional 10% bonus):
+                    </label>
+                    <input type="text" id="refAddr" />
+                    <br>
+                    <button class="btn btn-sm btn-light" id="btn-setreferrer">
+                      Set Referrer (+10% Bonus)
+                    </button>
+                  </div> -->
+                  <div class="row" style="padding-bottom: 1rem;">
+                    <label for="refAddr2">Set Referrer Address</label>
+                    <div class="text-white-50">Input Referrer's Address for additional 10% bonus</div>
+                    <div class="input-group"> 
+                      <input type="text" class="form-control" placeholder="Referrer's Address"
+                        aria-label="Referrer's Address" id="refAddr2" aria-describedby="basic-addon1">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-light" id="btn-setreferrer2" type="button">Set Referrer</button> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    </div>
-    <!-- <div class="container py-3">
+          </div>
+          <!-- <div class="container py-3">
       <div class="row gx-4 px-3 justify-content-center">
 
         <p class="lh-lg h5 mb-0 col-lg-3 text-center">$650k+ <em>Mkt. CAP</em></p>
@@ -155,7 +171,7 @@
       </div>
     </div> -->
 
-    <!-- <div class="container ">
+          <!-- <div class="container ">
       <div class="row gx-1 px-1 justify-content-center gap-sm-2">
         <a class="btn btn-sm btn-light mb-1 btn-max-width" target="_blank"
           href="https://docs.google.com/forms/d/e/1FAIpQLSdUcyUTPEOKhaqMiBvjux3KpTL9_sku7WQuNG0oRRI3vUw9qA/viewform">On

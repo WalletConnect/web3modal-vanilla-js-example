@@ -121,7 +121,7 @@ async function fetchAccountData() {
   // MetaMask does not give you all accounts, only the selected account
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
-  document.querySelector("#selected-account").textContent = selectedAccount;
+  document.querySelector("#selected-account").textContent = selectedAccount.substring(0, 8)+"..."+selectedAccount.substring(selectedAccount.length-6,selectedAccount.length);
   document.querySelector("#view-bsc-account").innerHTML = `<a href="https://bscscan.com/address/` + selectedAccount + `" target="_blank" class="text-info"> View account on BSC Scan</a>`;
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
@@ -329,7 +329,7 @@ async function onSellForced() {
   });
 }
 async function onSetReferrer() {
-  let val2 = document.getElementById("refAddr").value;
+  let val2 = document.getElementById("refAddr2").value;
   var patt = new RegExp(/^0x[a-fA-F0-9]{40}$/);
   if (!patt.test(val2)) {
     alert("Please enter a valid wallet address. (starts with '0x...') ");
@@ -423,7 +423,7 @@ window.addEventListener("load", async () => {
   document.querySelector("#btn-buy").addEventListener("click", onBuy);
   document.querySelector("#btn-sell-low-fee").addEventListener("click", onSellLowFee);
   document.querySelector("#btn-sell-forced").addEventListener("click", onSellForced);
-  document.querySelector("#btn-setreferrer").addEventListener("click", onSetReferrer);
+  document.querySelector("#btn-setreferrer2").addEventListener("click", onSetReferrer);
   document.getElementById("qbnb").addEventListener("keyup", function (event) {
     if (event.code === "Enter") {
       event.preventDefault();

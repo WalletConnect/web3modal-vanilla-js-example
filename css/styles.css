@@ -4353,8 +4353,7 @@ ul.ex2 {
   background-color: transparent;
   border: 3px solid rgba(255, 255, 255, 0.725);
   border-radius: 0.25rem;
-  padding-bottom: 3px;
-  padding-top: 3px;
+  padding :3px 3px;
   min-width: 400px;
   max-width:800px;
   align-content: center;
