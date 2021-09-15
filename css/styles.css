@@ -4337,7 +4337,6 @@ ul.ex2 {
 .navbar-dark .navbar-text a:focus {
   color: #fff;
 }
-
 .card {
   position: relative;
   display: flex;
@@ -4348,6 +4347,14 @@ ul.ex2 {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
+}
+/* added by alex*/
+.infocardstyle{
+  background-color: transparent;
+  border: 3px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding-bottom: 1rem;
+  padding-top: 0.5rem;
 }
 .card > hr {
   margin-right: 0;

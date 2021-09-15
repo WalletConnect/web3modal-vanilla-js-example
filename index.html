@@ -67,62 +67,81 @@
       </div>
       <div id="prepare">
         <div class="row justify-content-center">
-          <button class="btn btn-light col-sm-6" id="btn-connect">
+          <button class="btn btn-light col-sm-10 col-lg-6" id="btn-connect">
             Connect metamask wallet
           </button>
         </div>
       </div>
       <div id="connectStatus" class="row" style="text-align:center; padding-top: 1rem;padding-bottom: 1rem;">
-        <p >No wallet connected.</p>
+        <p>No wallet connected.</p>
       </div>
       <div id="connected" style="display: none;">
-        <div class="row justify-content-center">
-          <button class="btn col-sm-6 btn-warning" id="btn-disconnect">
-            Disconnect wallet
-          </button>
-          <div id="network">
-            <p>
+
+        <div class="card infocardstyle" >
+          <div class="col-sm-10 col-lg-6">
+            <div class="card-body">
               <strong>Connected blockchain:</strong>
               <span id="network-name"></span>
-            </p>
-            <p>
-              <span id="network-not-BSC"></span>
-            </p>
-            <p>
+            
+            <div class="justify-content-center"> 
+                <span id="network-not-BSC"></span> 
+            </div>
+            <div class="justify-content-center">
               <strong>Selected account:</strong>
               <span id="selected-account"></span>
-            </p>
+            </div>
             <p>
               <span id="view-bsc-account"></span>
             </p>
+            <button class="btn col-sm-6 btn-warning" id="btn-disconnect">
+              Disconnect wallet
+            </button></div>
           </div>
-          <hr />
-          <h3>Binance Coin Balance</h3>
-          <p id="BNBbal">0</p>
-          <h3>Doge Multiverse Balance</h3>
-          <p id="DMbal">0</p>
-          <hr />
-          <h3>Doge Multiverse Contract Interactions</h3>
-          <label for="qbnb">Buy $DogeMulti (input amount in BNB): </label>
-          <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
-          <button class="btn btn-light" id="btn-buy">
-            Buy from contract
-          </button>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+          <div class="col-sm-10 col-lg-6">
+            <h3>Binance Coin Balance</h3>
+            <p id="BNBbal">0</p>
+            <h3>Doge Multiverse Balance</h3>
+            <p id="DMbal">0</p>
+          </div>
+        </div>
+        <hr />
+        <div >
+          <div class="row justify-content-center">
+            <div class=" col-sm-10 col-lg-6">
+            <h3>Contract Interactions</h3>
+          </div></div>
+          <div class="row col-sm-10 col-lg-6" style="padding-bottom: 1rem;padding-top: 1rem;">
+            <label for="qbnb">Buy $DogeMulti (input amount in BNB): </label>
+            <input type="number" step="0.00001" min="0" value="0.0001" id="qbnb" name="qbnb" />
+            <br>
+            <button class="btn btn-sm btn-light" id="btn-buy">
+              Buy from contract
+            </button>
+          </div>
           <br>
-          <label for="qDM">Sell $DogeMulti (input amount in $DogeMulti): </label>
-          <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
-          <button class="btn btn-light" id="btn-sell-low-fee">
-            Sell from contract (0.1% fee)
-          </button>
-          <button class="btn btn-light" id="btn-sell-forced">
-            Sell from contract (30% fee)
-          </button>
+          <div class="row col-sm-10 col-lg-6" style="padding-bottom: 1rem;">
+            <label for="qDM">Sell $DogeMulti (input amount in $DogeMulti): </label>
+            <input type="number" step="1" min="1" value="1" id="qDM" name="qDM" />
+            <br>
+            <button class="btn btn-sm btn-light" id="btn-sell-low-fee">
+              Sell from contract (0.1% fee)
+            </button>
+            <button class="btn btn-sm btn-light" id="btn-sell-forced">
+              Sell from contract (30% fee)
+            </button>
+          </div>
           <br>
-          <label for="refAddr">Set Referrer Address (input Referrer Address for additional 10% bonus): </label>
-          <input type="text" id="refAddr" />
-          <button class="btn btn-light" id="btn-setreferrer">
-            Set Referrer (+10% Bonus)
-          </button>
+          <div class="row col-sm-10 col-lg-6" style="padding-bottom: 1rem;">
+            <label for="refAddr">Set Referrer Address (input Referrer Address for additional 10% bonus): </label>
+            <input type="text" id="refAddr" />
+            <br>
+            <button class="btn btn-sm btn-light" id="btn-setreferrer">
+              Set Referrer (+10% Bonus)
+            </button>
+          </div>
         </div>
       </div>
 
