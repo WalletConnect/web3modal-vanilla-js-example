@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.https": {
+      "enable": true,
+      "cert": "C:/Users/aktan/Documents/server_docs/httpskeys/localhost.pem",
+      "key": "C:/Users/aktan/Documents/server_docs/httpskeys/localhost.key",
+      "passphrase": "alexalex"
+    },
+    "liveServer.settings.host": "localhost"
+  }

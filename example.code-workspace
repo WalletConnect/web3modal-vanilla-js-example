@@ -16,6 +16,13 @@
 		},
 
 		"prettier.requireConfig": true,
+		"liveServer.settings.https": {
+			"enable": true,
+			"cert": "C:\\\\Users\\\\aktan\\\\Documents\\\\server_docs\\\\purchaseTokensUI\\\\httpskeys\\\\localhost.pem",
+			"key": "C:\\\\Users\\\\aktan\\\\Documents\\\\server_docs\\\\purchaseTokensUI\\\\httpskeys\\\\localhost.key",
+			"passphrase": "alexalex"
+		},
+		"liveServer.settings.port": 5502,
 
 	}
 }

@@ -1,0 +1,42 @@
+.header-sec .overlay{
+    background-color: #292929;
+    opacity: 0.6;
+}
+
+#menu {
+    color:white;
+    background-color: #292929;
+}
+
+.testi-sec .overlay{
+    color:white;
+    background-color: #292929;
+}
+ 
+
+.single-price {
+    color:white;
+    background-color: #292929;
+}
+.multi-price {
+    color:white;
+    background-color:#292929;
+}
+
+.myfooter {
+    color:white;
+    background-color:#292929;
+}
+
+body {
+    color:white;
+    background-color:black;
+}
+
+p a {
+    color: white;
+}
+
+.fa {
+    color: white;
+}
