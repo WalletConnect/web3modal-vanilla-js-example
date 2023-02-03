@@ -1,3 +1,9 @@
+## This repositor has been archived. Please visit [web3modal.com](https://web3modal.com/) for latest examples.
+
+
+***
+
+
 This is a vanilla JavaScript example how to use Web3modal with different  wallet providers.
 
 The purpose of this example is how to connect a cryptocurrency wallet
