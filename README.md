@@ -33,7 +33,7 @@ commented and short.
 
 # What should I do with this
 
-[Web3modal](https://github.com/web3modal/web3modal)) is a vendor-neutral project
+[Web3modal](https://github.com/web3modal/web3modal) is a vendor-neutral project
 offering an easy integration of cryptocurrency and
 decentralised finance for websites. For example, you can use this to start
 accepting cryptocurrency payments on your site or to start
